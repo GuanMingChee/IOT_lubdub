@@ -15,10 +15,36 @@
 
 'use strict';
 
-// [START gae_flex_quickstart]
+// [START gae_node_request_example]
 const express = require('express');
 
 const app = express();
+
+//---
+let timesHelloed = 0; //global variable
+//---
+app.get('/hello', (req, res) => { //increase count of hello
+  timesHelloed++
+  res
+    .status(200)
+    .send('Times Helloed Increment')
+    .end();
+});
+//---
+app.get('/timesHelloed', (req, res) => {  //display count of hello
+  res
+    .status(200)
+    .send('Times helloed: '.concat(timesHelloed))
+    .end();
+});
+//---
+app.get('/resetTimesHelloed', (req, res) => { //reset count to 0
+  timesHelloed = 0
+  res
+    .status(200)
+    .send('Successful reset: '.concat(timesHelloed))
+    .end();
+});
 
 app.get('/', (req, res) => {
   res
@@ -33,6 +59,6 @@ app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
   console.log('Press Ctrl+C to quit.');
 });
-// [END gae_flex_quickstart]
+// [END gae_node_request_example]
 
 module.exports = app;
